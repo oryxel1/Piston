@@ -5,7 +5,10 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.level.block.Block;
 import org.geysermc.geyser.api.item.custom.v2.CustomItemBedrockOptions;
 import org.geysermc.geyser.api.item.custom.v2.CustomItemDefinition;
 import org.geysermc.geyser.api.item.custom.v2.component.*;
@@ -13,9 +16,7 @@ import org.geysermc.geyser.api.util.CreativeCategory;
 import org.geysermc.geyser.api.util.Identifier;
 import org.geysermc.hydraulic.util.HydraulicKey;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ComponentConverter {
     private static final Map<DataComponentType<?>, Converter<Object>> COMPONENT_CONVERT_MAP = new HashMap<>();
@@ -65,7 +66,19 @@ public class ComponentConverter {
             definition.component(DataComponent.USE_COOLDOWN, new UseCooldown(component.seconds(), location));
         });
         addComponentConversion(DataComponents.TOOL, (component, map, definition, options) -> {
-            definition.component(DataComponent.TOOL, new ToolProperties(component.canDestroyBlocksInCreative()));
+            final List<ToolProperties.Rule> rules = new ArrayList<>();
+            for (Tool.Rule rule : component.rules()) {
+                int[] blocks = new int[rule.blocks().size()];
+                int i = 0;
+                for (Holder<Block> block : rule.blocks()) {
+                    blocks[i] = BuiltInRegistries.BLOCK.getId(block.value());
+                    i++;
+                }
+
+                rules.add(new ToolProperties.Rule(new ToolProperties.SimplifiedHolderSet(blocks), rule.speed().orElse(null), rule.correctForDrops().orElse(false)));
+            }
+
+            definition.component(DataComponent.TOOL, new ToolProperties(rules, component.defaultMiningSpeed(), component.damagePerBlock(), component.canDestroyBlocksInCreative()));
         });
         addComponentConversion(DataComponents.ENCHANTABLE, (component, map, definition, options) -> {
             definition.component(DataComponent.ENCHANTABLE, component.value());
