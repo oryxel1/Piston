@@ -99,7 +99,10 @@ public class ComponentConverter {
                     .defaultMiningSpeed(component.defaultMiningSpeed());
 
             for (Tool.Rule toolRule : component.rules()) {
-                if (toolRule.speed().isEmpty()) continue;
+                if (toolRule.speed().isEmpty()) {
+                    System.out.println("Block size: " + toolRule.blocks().size());
+                    continue;
+                }
 
                 toolProperties.rule(
                         ToolProperties.Rule.builder()
