@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(Block.class)
+@Mixin(value = Block.class, remap = false)
 public class GeyserBlockMixin<E> implements IGeyserBlock {
     @Unique
     private List<BlockState> states = new ArrayList<>();

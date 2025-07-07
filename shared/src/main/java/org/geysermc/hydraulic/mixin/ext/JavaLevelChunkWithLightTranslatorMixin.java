@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(JavaLevelChunkWithLightTranslator.class)
+@Mixin(value = JavaLevelChunkWithLightTranslator.class, remap = false)
 public class JavaLevelChunkWithLightTranslatorMixin {
     @Redirect(method = "translate(Lorg/geysermc/geyser/session/GeyserSession;Lorg/geysermc/mcprotocollib/protocol/packet/ingame/clientbound/level/ClientboundLevelChunkWithLightPacket;)V",
             at = @At(
