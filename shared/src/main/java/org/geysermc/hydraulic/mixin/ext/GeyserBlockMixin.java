@@ -20,6 +20,7 @@ public class GeyserBlockMixin<E> implements IGeyserBlock {
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/List;get(I)Ljava/lang/Object;"))
     private E injectBlockStateList(List instance, int i) {
         this.states = instance;
+
         return (E) instance.get(i);
     }
 
