@@ -4,6 +4,8 @@
   "package": "org.geysermc.hydraulic.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ext.JavaLevelChunkWithLightTranslatorMixin",
+    "ext.GeyserBlockMixin",
     "ext.BlockRegistryPopulatorMixin",
     "ext.BlockStateSerializerMixin",
     "ext.ItemTranslatorMixin",
