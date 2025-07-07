@@ -1,18 +1,18 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.geysermc.hydraulic.mixin",
+  "package": "org.geysermc.hydraulic.mixin.ext",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ext.JavaLevelChunkWithLightTranslatorMixin",
-    "ext.GeyserBlockMixin",
-    "ext.BlockRegistryPopulatorMixin",
-    "ext.BlockStateSerializerMixin",
-    "ext.ItemTranslatorMixin",
-    "ext.MinecraftResourcePackReaderImplMixin",
-    "ext.InventoryUtilsMixin",
-    "ext.LocationAwareSlf4JLoggerMixin",
-    "ext.ModelSerializerMixin"
+    "JavaLevelChunkWithLightTranslatorMixin",
+    "GeyserBlockMixin",
+    "BlockRegistryPopulatorMixin",
+    "BlockStateSerializerMixin",
+    "ItemTranslatorMixin",
+    "MinecraftResourcePackReaderImplMixin",
+    "InventoryUtilsMixin",
+    "LocationAwareSlf4JLoggerMixin",
+    "ModelSerializerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
